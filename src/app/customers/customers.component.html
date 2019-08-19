@@ -1,0 +1,10 @@
+<button (click)="changeVisibility()"  class="btn btn-info">CLICK ME</button>
+<p>
+    Databinding with interpolation {{title}}
+</p>
+<span>
+  Databinding without interpolation
+  <h5 [hidden]="!isVisible" [innerHtml]="cstmrHeader2"></h5>
+</span>
+<br/>
+<app-customers-list [customers]="people"></app-customers-list>

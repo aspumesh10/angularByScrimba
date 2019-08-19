@@ -1,0 +1,36 @@
+<!-- the [filter]="'seattle'" will provide the default filtering at start if and only if the customers
+are people are hard coded that means not retrieved from get request -->
+<filter-textbox [filter]="'seattle'" (changed)="filter($event)"></filter-textbox>
+<br />
+<br />
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th (click)="sort('name')"> <a> Name </a> </th>
+            <th (click)="sort('city')"> <a> City </a> </th>
+            <th (click)="sort('orderTotal')"> <a> Order Total </a> </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let cust of filteredCustomers">
+            <td>
+                <!-- we can also  add static value bu  [routerLink] = '/customers' -->
+                <a [routerLink]="['/orders', cust.id]">
+                    {{ cust.name | capitalize }}
+                </a>
+            </td>
+            <td>{{ cust.city | capitalize }}</td>
+            <td>{{ cust.orderTotal | currency:currencyCode:'symbol' }}</td>
+        </tr>
+        <tr *ngIf="filteredCustomers && filteredCustomers.length>0">
+            <td colspan="1">&nbsp;</td>
+            <td colspan="1">&nbsp;</td>
+            <td>{{ customersOrderTotal | currency:currencyCode:'code' }}</td>
+        </tr>
+        <tr *ngIf="!filteredCustomers || !filteredCustomers.length">
+            <td colspan="4">No customers found</td>
+        </tr>
+    </tbody>
+</table>
+Number of Customers: {{ filteredCustomers.length }}
+<br />
